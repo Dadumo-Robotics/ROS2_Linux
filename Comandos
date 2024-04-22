@@ -12,7 +12,7 @@ cd $HOME/turtlebot3_ws
 # deberemos poner esto siempre que vayamos a ejecutar un comando de ROS2 desde una terminal nueva !!! (creo que ya no porque hice una cosa en el .bashrc)
 source /opt/ros/galactic/setup.bash 
 
-Para crear un paquete ROS 2 deberemos situarnos en el directorio src y ejecutar la siguiente instrucción (NO HACE FALTA QUE LO HAGAIS AHORA):
+Para crear un paquete ROS 2 deberemos situarnos en el directorio src/dadumo y ejecutar la siguiente instrucción (NO HACE FALTA QUE LO HAGAIS AHORA):
 source install/setup.bash
 ros2 pkg create package_name #donde package name es el nombre del paquete a crear
 
