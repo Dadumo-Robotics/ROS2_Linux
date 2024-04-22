@@ -1,0 +1,37 @@
+pon estos comandos en terminal:
+
+rosenv
+
+cd Documentos/Python_WS
+
+
+# para ir a turtlebot
+# en la máquina virtual
+rosenv # equivale a source $HOME/virtualenvs/rosenv/bin/activate
+cd $HOME/turtlebot3_ws 
+# deberemos poner esto siempre que vayamos a ejecutar un comando de ROS2 desde una terminal nueva !!! (creo que ya no porque hice una cosa en el .bashrc)
+source /opt/ros/galactic/setup.bash 
+
+Para crear un paquete ROS 2 deberemos situarnos en el directorio src y ejecutar la siguiente instrucción (NO HACE FALTA QUE LO HAGAIS AHORA):
+source install/setup.bash
+ros2 pkg create package_name #donde package name es el nombre del paquete a crear
+
+recuerda darle los permisos!
+chmod +x (nombre fichero)
+
+
+
+# para abrir el mapa de fábrica...
+ros2 launch dadumo_world turtlebot3_my_world.launch.py
+
+# Si queremos guardar los cambios hechos en dadumo_world...
+Paso 1: Hacer los cambios
+Paso 2: Guardarlos
+Paso 3: 
+cd turtlebot3_ws/
+colcon build --packages-select dadumo_world
+source install/setup.bash
+ros2 launch dadumo_world turtlebot3_my_world.launch.py
+
+Paso 4: Disfruta
+
