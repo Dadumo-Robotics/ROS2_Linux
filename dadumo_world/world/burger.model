@@ -51,11 +51,25 @@
       </include>
     </model>
 
-    <model name="trashcan_1">
+    <model name="yellow_trashbin">
       <static>1</static>
       <include>
         <pose>9.5 -0.5 0.0 0.0 0.0 0.0</pose>
-        <uri>model://TrashBin</uri>
+        <uri>model://YellowTrashBin</uri>
+      </include>
+    </model>
+    <model name="blue_trashbin">
+      <static>1</static>
+      <include>
+        <pose>9.5 -1 0.0 0.0 0.0 0.0</pose>
+        <uri>model://BlueTrashBin</uri>
+      </include>
+    </model>
+    <model name="brown_trashbin">
+      <static>1</static>
+      <include>
+        <pose>9.5 -1.5 0.0 0.0 0.0 0.0</pose>
+        <uri>model://BrownTrashBin</uri>
       </include>
     </model>
 
