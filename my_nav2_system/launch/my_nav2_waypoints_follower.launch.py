@@ -99,4 +99,9 @@ def generate_launch_description():
                parameters=[{'use_sim_time': True}],
                output='screen'
         ),
+
+        Node(
+            package='my_nav2_system',
+            executable='initial_pose_publisher',
+            output='screen'),
     ])

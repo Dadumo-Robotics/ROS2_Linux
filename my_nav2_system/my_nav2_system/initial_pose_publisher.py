@@ -15,7 +15,7 @@ class InitialPosePublisher(Node):
         msg.header.frame_id = "map"
 
         # Configuración de la pose
-        msg.pose.pose.position = Point(x=-0.1, y=0.4, z=0.0)  # Coordenadas arbitrarias
+        msg.pose.pose.position = Point(x=0.25, y=0.11, z=0.0)  # Coordenadas arbitrarias
         msg.pose.pose.orientation = Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)  # Sin rotación
 
         # Publicar el mensaje
