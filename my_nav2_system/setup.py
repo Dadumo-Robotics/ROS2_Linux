@@ -31,7 +31,8 @@ setup(
             'initial_pose_pub = my_nav2_system.initial_pose_pub:main', #añadir
             'initial_pose_publisher = my_nav2_system.initial_pose_publisher:main',
             'navigate_to_pose_client = my_nav2_system.navigate_to_pose_client:main',
-            'my_waypoint_follower = my_nav2_system.my_waypoint_follower:main'
+            'my_waypoint_follower = my_nav2_system.my_waypoint_follower:main',
+            'my_waypoint_follower_sim = my_nav2_system.my_waypoint_follower_sim:main'
         ],
     },
 )

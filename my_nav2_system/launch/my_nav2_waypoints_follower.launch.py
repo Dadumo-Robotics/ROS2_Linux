@@ -14,8 +14,8 @@ def generate_launch_description():
     gazebo_launch_file = os.path.join(
         get_package_share_directory('dadumo_world'), 'launch', 'turtlebot3_my_world.launch.py')
 
-    nav2_yaml = os.path.join(get_package_share_directory('my_nav2_system'), 'config', 'my_nav2_params.yaml')
-    map_file = os.path.join(get_package_share_directory('my_nav2_system'), 'config', 'my_map.yaml')
+    nav2_yaml = os.path.join(get_package_share_directory('my_nav2_system'), 'config', 'my_nav2_params_sim.yaml')
+    map_file = os.path.join(get_package_share_directory('my_nav2_system'), 'config', 'my_sim.yaml')
     rviz_config_dir = os.path.join(get_package_share_directory('my_nav2_system'), 'config', 'my_slam.rviz')
    # urdf = os.path.join(get_package_share_directory('turtlebot3_description'), 'urdf', 'turtlebot3_burger.urdf')
    # world = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'worlds', 'turtlebot3_worlds/burger.model')

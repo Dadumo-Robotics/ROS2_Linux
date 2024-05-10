@@ -43,14 +43,21 @@ def main(args=None):
     PoseStamped(
         header=Header(frame_id="map", stamp=node.get_clock().now().to_msg()),
         pose=Pose(
-            position=Point(x=0.6, y=0.0, z=0.0),
+            position=Point(x=-1.0, y=0.5, z=0.0),
             orientation=Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
         )
     ),
     PoseStamped(
         header=Header(frame_id="map", stamp=node.get_clock().now().to_msg()),
         pose=Pose(
-            position=Point(x=1.3, y=0.06, z=0.0),
+            position=Point(x=-2.0, y=0.0, z=0.0),
+            orientation=Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
+        )
+    ),
+    PoseStamped(
+        header=Header(frame_id="map", stamp=node.get_clock().now().to_msg()),
+        pose=Pose(
+            position=Point(x=-3.3, y=3.8, z=0.0),
             orientation=Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
         )
     )
