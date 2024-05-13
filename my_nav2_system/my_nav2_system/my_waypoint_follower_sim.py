@@ -21,20 +21,27 @@ class WaypointFollower(Node):
     def create_waypoints(self):
         return [
             PoseStamped(
-        header=Header(frame_id="map", stamp=self.get_clock().now().to_msg()),
-        pose=Pose(
-            position=Point(x=0.6, y=0.0, z=0.0),
-            orientation=Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
-        )
-    ),
-    PoseStamped(
-        header=Header(frame_id="map", stamp=self.get_clock().now().to_msg()),
-        pose=Pose(
-            position=Point(x=1.3, y=0.06, z=0.0),
-            orientation=Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
-        )
-    )
-]
+                header=Header(frame_id="map", stamp=self.get_clock().now().to_msg()),
+                pose=Pose(
+                    position=Point(x=-1.0, y=0.5, z=0.0),
+                    orientation=Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
+                )
+            ),
+            PoseStamped(
+                header=Header(frame_id="map", stamp=self.get_clock().now().to_msg()),
+                pose=Pose(
+                    position=Point(x=-2.0, y=0.0, z=0.0),
+                    orientation=Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
+                )
+            ),
+            PoseStamped(
+                header=Header(frame_id="map", stamp=self.get_clock().now().to_msg()),
+                pose=Pose(
+                    position=Point(x=-3.3, y=3.8, z=0.0),
+                    orientation=Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
+                )
+            )
+        ]
     
     def send_waypoints(self, waypoints):
         goal_msg = FollowWaypoints.Goal()
@@ -61,7 +68,11 @@ class WaypointFollower(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = WaypointFollower()
-    
+    # Define tus waypoints aquí
+    #waypoints = [
+    #    PoseStamped(),  # Define cada PoseStamped con la posición adecuada
+    #]
+    #node.send_waypoints(waypoints)
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
