@@ -45,3 +45,72 @@ Para controlar el robot simulado desde la web, sigue estos pasos:
 1. En un terminal, ejecuta:
    ```bash
    ros2 launch rosbridge_server rosbridge_websocket_launch.xml
+
+2. En otro terminal, ejecuta:
+   ```bash
+   ros2 launch my_nav2_system my_nav2_waypoints_follower.launch.py
+
+3. En otro terminal, ejecuta:
+   ```bash
+   ros2 run my_nav2_system my_waypoint_follower_sim
+
+4. En otro terminal, ejecuta:
+   ```bash
+   ros2 launch my_first_service movement_server_launch2.launch.py
+
+4. Lanza un servidor HTTP Python en el directorio del proyecto:
+   ```bash
+   python -m http.server 8000
+
+### Control del Robot Real desde la Web
+
+Este apartado describe cómo controlar un robot real utilizando ROS desde una interfaz web.
+
+### Pasos a Seguir
+
+Para controlar el robot real desde la web, sigue estos pasos:
+
+1. **Conexión al Robot**: Conéctate al robot a través de SSH utilizando el siguiente comando en un terminal:
+
+   ```bash
+   ssh usuario@192.168.0.62
+   
+Reemplaza usuario por el nombre de usuario del robot y 192.168.0.62 por la dirección IP del robot. 
+
+2. Inicio del Sistema del Robot: En un terminal, ejecuta el siguiente comando para iniciar el sistema del robot:
+
+   ```bash
+   ros2 launch turtlebot3_bringup robot.launch.py
+   
+Este comando iniciará todos los nodos necesarios para el funcionamiento del robot.
+
+3. Conexión al Servidor ROS Bridge: En otro terminal, ejecuta el siguiente comando para conectar el servidor ROS Bridge:
+   ```bash
+   ros2 launch rosbridge_server rosbridge_websocket_launch.xml
+   
+Este comando establecerá una conexión WebSocket para comunicarse con el servidor ROS desde la interfaz web.
+
+4. Inicio del Sistema de Navegación: En otro terminal, ejecuta el siguiente comando para iniciar el sistema de navegación del robot:
+
+   ```bash
+   ros2 launch my_nav2_system my_nav2_waypoints_follower.launch.py
+   
+Este comando iniciará el sistema de navegación que permite al robot moverse hacia puntos de referencia especificados.
+
+5.Inicio del Control desde la Web: En otro terminal, ejecuta el siguiente comando para iniciar el nodo de control desde la web:
+
+   ```bash
+   ros2 run my_nav2_system my_waypoint_follower
+   ```
+Este comando habilitará la comunicación entre el servidor web y el robot para enviar comandos de control.
+
+6. Inicio del Servidor HTTP: En otro terminal, lanza un servidor HTTP Python en el directorio del proyecto:
+
+   ```bash
+   python -m http.server 8000
+
+Este comando iniciará un servidor web en el puerto 8000 para la interfaz de control desde la web.
+
+7. Control del Robot desde la Web: Abre un navegador web e ingresa la dirección URL del servidor HTTP (por lo general, http://localhost:8000). Utiliza la interfaz web proporcionada para enviar comandos de control al robot.
+
+
