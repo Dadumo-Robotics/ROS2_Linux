@@ -45,3 +45,53 @@ Para controlar el robot simulado desde la web, sigue estos pasos:
 1. En un terminal, ejecuta:
    ```bash
    ros2 launch rosbridge_server rosbridge_websocket_launch.xml
+
+2. En otro terminal, ejecuta:
+   ```bash
+   ros2 run my_nav2_system my_nav2
+   ```
+
+3. En otro terminal, ejecuta:
+    ```bash
+   ros2 run my_nav2_system my_waypoint_follower_sim
+   ```
+4. En otro terminar, ejecuta:
+   ```bash
+   ros2 launch my_first_service movement_server_launch2.launch.py
+   ```
+5. En otro terminar, ejecuta:
+   ```bash
+   python -m http.server 8000
+   ```
+
+## Control del Robot Real desde la Web
+### Para controlar el robot real desde la web, sigue estos pasos:
+
+1. Conéctate al robot a través de SSH en un terminal:
+   ```bash
+   ssh usuario@192.168.0.62
+
+2. En otro terminal, ejecuta:
+   ```bash
+   ros2 launch turtlebot3_bringup robot.launch.py
+   ```
+3. En otro terminal, ejecuta:
+    ```bash
+   ros2 launch rosbridge_server rosbridge_websocket_launch.xml
+   ```
+4. En otro terminar, ejecuta:
+   ```bash
+   ros2 launch my_nav2_system my_nav2_waypoints_follower.launch.py
+   ```
+5. En otro terminar, ejecuta:
+   ```bash
+   ros2 run my_nav2_system my_waypoint_follower
+   ```
+6. En otro terminal, ejecuta:
+   ```bash
+   ros2 launch my_first_service movement_server_launch2.launch.py
+   ```
+7. Lanza un servidor HTTP Python en el directorio del proyecto:
+   ```bash
+   python -m http.server 8000
+   ```
