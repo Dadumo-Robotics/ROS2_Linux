@@ -1,0 +1,4 @@
+Nueva normativa de GITKRAKEN
+
+Ahora cada sprint trabajaremos sobre "develop0X" donde "X" es el número del sprint
+Y cada feature se hará así "TT-HX-TY"; "TT" es "TrashTrooper", "HX" Es "Historia de usuario X" y "TY" es "Tarea Y". Por ejemplo: "TT-H07-T15" Esto señala que la feature es la tarea 15, que contribuye a la historia de usuario 7
