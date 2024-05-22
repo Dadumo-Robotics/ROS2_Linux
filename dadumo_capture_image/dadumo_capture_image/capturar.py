@@ -32,8 +32,15 @@ class Ros2OpenCVImageConverter(Node):
 
     # esta funcion debe ser llamada cuando se ha CONFIRMADO un objeto, no cuando detecta cualquier cosa
     def centrar_camara(self,imagen_obstaculo):
-        ancho_imagen = imagen_obstaculo.shape[1]
+        # cambiar centro_imagen por un RANGO, para que no sea un solo pixel, es decir, cambiarlo a algo como [180, 230]
+        # algo asi
+        #centro_imagen1 = ancho_imagen/1.9
+        #centro_imagen2 = ancho_imagen/2.1
 
+        # dejo un print para ver si funciona
+        #print("Esto funciona!")
+
+        ancho_imagen = imagen_obstaculo.shape[1]
         centro_imagen = ancho_imagen/2
         # de momento pilla bien el ancho de la imagen...
         # el objetivo ahora es que calculemos el centro del objeto de interés, y con ese centro, que intente girar al robot para que centro_imagen
