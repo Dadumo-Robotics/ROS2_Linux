@@ -1,0 +1,6 @@
+PARA ACTIVAR LA CAMARA
+#terminal 1
+ros2 launch dadumo_world turtlebot3_my_world.launch.py
+
+#terminal 2
+ros2 run dadumo_capture_image capturar
