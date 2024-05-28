@@ -1,3 +1,9 @@
+PARA COMPILAR ESTE APARTADO
+cd turtlebot3_ws
+colcon build --packages-select dadumo_capture_image
+source install/setup.bash
+
+
 PARA ACTIVAR LA CAMARA
 #terminal 1
 export TURTLEBOT3_MODEL=burger_pi
@@ -8,7 +14,7 @@ export TURTLEBOT3_MODEL=burger_pi
 ros2 run dadumo_capture_image capturar
 
 
-# la línea de export hay que ponerla siempre, o se puede cambiar el .bashrc
+# la línea de export hay que ponerla siempre, o alternativamente, se puede cambiar el .bashrc
 # (yo lo he cambiado manualmente desde el fichero, no hace falta hacer el nano .bashrc)
 # export TURTLEBOT3_MODEL=burger -> export TURTLEBOT3_MODEL=burger_pi 
 # (esta abajo del todo en .bashrc)

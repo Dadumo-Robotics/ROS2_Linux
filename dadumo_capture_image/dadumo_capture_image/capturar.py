@@ -5,6 +5,8 @@ from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
 from rclpy.node import Node
 from rclpy.qos import ReliabilityPolicy, QoSProfile
+from geometry_msgs.msg import Twist
+
 
 class Ros2OpenCVImageConverter(Node):
 
@@ -12,6 +14,7 @@ class Ros2OpenCVImageConverter(Node):
 
         super().__init__('Ros2OpenCVImageConverter')
 
+        self.publisher = self.create_publisher(Twist, 'cmd_vel', 10)
         self.bridge_object = CvBridge()
         self.image_sub = self.create_subscription(Image,'/camera/image_raw',self.camera_callback,QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT))
         # esto es posible que sea necesario para el robot REAL, image_raw es para SIMULACION
@@ -42,6 +45,22 @@ class Ros2OpenCVImageConverter(Node):
 
         ancho_imagen = imagen_obstaculo.shape[1]
         centro_imagen = ancho_imagen/2
+        msg = Twist()
+        objeto_a_la_derecha = False
+        objeto_a_la_izquierda = False
+        if(objeto_a_la_derecha):
+            msg.angular.z = -0.5
+            # publica el mensaje
+            self.publisher.publish(msg)
+            # imprime mensaje informando del movimiento
+            self.get_logger().info('Girando hacia la derecha')
+        if(objeto_a_la_izquierda):
+            msg.angular.z = 0.5
+            # publica el mensaje
+            self.publisher.publish(msg)
+            # imprime mensaje informando del movimiento
+            self.get_logger().info('Girando hacia la derecha')
+
         # de momento pilla bien el ancho de la imagen...
         # el objetivo ahora es que calculemos el centro del objeto de interés, y con ese centro, que intente girar al robot para que centro_imagen
         # y el centro de interés coincidan. Llamaremos al centro de interés "centro_interes"
