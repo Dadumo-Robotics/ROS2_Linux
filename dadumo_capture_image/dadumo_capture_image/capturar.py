@@ -15,6 +15,7 @@ class Ros2OpenCVImageConverter(Node):
         super().__init__('Ros2OpenCVImageConverter')
 
         self.publisher = self.create_publisher(Twist, 'cmd_vel', 10)
+        self.image_publisher = self.create_publisher(Image, 'camera/image_processed', 10)  # Añadido para publicar imágenes
         self.bridge_object = CvBridge()
         self.image_sub = self.create_subscription(Image,'/camera/image_raw',self.camera_callback,QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT))
         # esto es posible que sea necesario para el robot REAL, image_raw es para SIMULACION
@@ -22,6 +23,15 @@ class Ros2OpenCVImageConverter(Node):
 
     def camera_callback(self,data):
         #print("Llamando al callback!")
+        
+        # Publicar la imagen en el tópico camera/image
+        try:
+            image_message = self.bridge_object.cv2_to_imgmsg(cv_image, encoding="bgr8")
+            self.image_publisher.publish(image_message)
+        except CvBridgeError as e:
+            print(e)
+
+
         try:
             # Seleccionamos bgr8 porque es la codificacion de OpenCV por defecto
             cv_image = self.bridge_object.imgmsg_to_cv2(data, desired_encoding="bgr8")
