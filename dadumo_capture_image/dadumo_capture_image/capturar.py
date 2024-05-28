@@ -23,21 +23,19 @@ class Ros2OpenCVImageConverter(Node):
 
     def camera_callback(self,data):
         #print("Llamando al callback!")
-        
-        # Publicar la imagen en el tópico camera/image
-        try:
-            image_message = self.bridge_object.cv2_to_imgmsg(cv_image, encoding="bgr8")
-            self.image_publisher.publish(image_message)
-        except CvBridgeError as e:
-            print(e)
-
-
         try:
             # Seleccionamos bgr8 porque es la codificacion de OpenCV por defecto
             cv_image = self.bridge_object.imgmsg_to_cv2(data, desired_encoding="bgr8")
         except CvBridgeError as e:
             print(e)
 
+        # Publicar la imagen en el tópico camera/image
+        try:
+            image_message = self.bridge_object.cv2_to_imgmsg(cv_image, encoding="bgr8")
+            self.image_publisher.publish(image_message)
+        except CvBridgeError as e:
+            print(e)
+            
         # Aqui ya deberiamos ser capaces de trabajar con la imagen, y trabajar en la detección de objetos y la respuesta del robot a ellos
         self.centrar_camara(cv_image)
         cv2.imshow("Imagen capturada por el robot", cv_image)
@@ -69,15 +67,12 @@ class Ros2OpenCVImageConverter(Node):
             # publica el mensaje
             self.publisher.publish(msg)
             # imprime mensaje informando del movimiento
-            self.get_logger().info('Girando hacia la derecha')
+            self.get_logger().info('Girando hacia la izquierda')
 
         # de momento pilla bien el ancho de la imagen...
         # el objetivo ahora es que calculemos el centro del objeto de interés, y con ese centro, que intente girar al robot para que centro_imagen
         # y el centro de interés coincidan. Llamaremos al centro de interés "centro_interes"
         
-
-        
-
 def main(args=None):
     #print("Print 1 !!!")
     rclpy.init(args=args)
@@ -91,9 +86,6 @@ def main(args=None):
         print("Fin del programa!")
 
     cv2.destroyAllWindows()
-
-
-
 
 if __name__ == '__main__':
     main()
