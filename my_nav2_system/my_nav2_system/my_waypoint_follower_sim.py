@@ -5,17 +5,20 @@ from nav2_msgs.action import FollowWaypoints
 from geometry_msgs.msg import PoseStamped, Pose, Point, Quaternion
 from std_msgs.msg import Header
 from std_srvs.srv import Trigger
+from custom_interface.srv import FollowWaypointsSrv
 
 class WaypointFollower(Node):
     def __init__(self):
         super().__init__('waypoint_follower')
         self._action_client = ActionClient(self, FollowWaypoints, 'follow_waypoints')
-        self.srv = self.create_service(Trigger, 'start_waypoint_following', self.start_following_callback)
+        self.srv = self.create_service(FollowWaypointsSrv, 'start_waypoint_following', self.start_following_callback)
 
     def start_following_callback(self, request, response):
-        waypoints = self.create_waypoints()
+        #waypoints = self.create_waypoints()
+        waypoints = request.waypoints
         self.send_waypoints(waypoints)
         response.success = True
+        response.message = "Waypoints received and goal sent"
         return response
 
     def create_waypoints(self):
