@@ -26,7 +26,6 @@ class Ros2OpenCVImageConverter(Node):
         print("Nodo inicializado")
         self.image_publisher = self.create_publisher(Image, 'camera/image_processed', 10)  # Añadido para publicar imágenes
         self.publisher = self.create_publisher(Twist, 'cmd_vel', 10)
-        self.image_publisher = self.create_publisher(Image, 'camera/image_processed', 10)  # Añadido para publicar imágenes
         self.bridge_object = CvBridge()
         self.image_sub = self.create_subscription(Image,'/image',self.camera_callback,QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT))
         # el topic image_raw es para SIMULACION
@@ -41,17 +40,12 @@ class Ros2OpenCVImageConverter(Node):
         except CvBridgeError as e:
             print(e)
 
-<<<<<<< HEAD
         # Publicar imagen a la web
-=======
-        # Publicar la imagen en el tópico camera/image
->>>>>>> 4d9897cae42b24fcd73b769203d897319ec64705
         try:
             image_message = self.bridge_object.cv2_to_imgmsg(cv_image, encoding="bgr8")
             self.image_publisher.publish(image_message)
         except CvBridgeError as e:
             print(e)
-<<<<<<< HEAD
 
         self.img = cv_image
         # Obtener las dimensiones de la imagen
@@ -61,9 +55,6 @@ class Ros2OpenCVImageConverter(Node):
 
         print("Height: " + str(height))
         print("W: " + str(width))
-=======
-            
->>>>>>> 4d9897cae42b24fcd73b769203d897319ec64705
         # Aqui ya deberiamos ser capaces de trabajar con la imagen, y trabajar en la detección de objetos y la respuesta del robot a ellos
         self.conjuntopro()
         #self.centrar_camara(cv_image)
@@ -93,11 +84,8 @@ class Ros2OpenCVImageConverter(Node):
             self.publisher.publish(msg)
             # imprime mensaje informando del movimiento
             self.get_logger().info('Girando hacia la izquierda')
-<<<<<<< HEAD
         else:
             self.get_logger().info('Conseguido')
-=======
->>>>>>> 4d9897cae42b24fcd73b769203d897319ec64705
 
     def conjuntopro(self):
         img_gray = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
@@ -215,6 +203,9 @@ class Ros2OpenCVImageConverter(Node):
         cv2.waitKey(0)
         cv2.destroyAllWindows()
         
+
+        
+
 def main(args=None):
     rclpy.init(args=args)
     img_converter_object = Ros2OpenCVImageConverter()
@@ -225,6 +216,9 @@ def main(args=None):
         print("Fin del programa!")
 
     cv2.destroyAllWindows()
+
+
+
 
 if __name__ == '__main__':
     main()

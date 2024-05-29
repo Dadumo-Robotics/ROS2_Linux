@@ -23,7 +23,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'capturar = dadumo_capture_image.capturar:main'
+            'capturar = dadumo_capture_image.capturar:main',
+            'capturar_mov = dadumo_capture_image.capturar_mov:main'
         ],
     },
 )
