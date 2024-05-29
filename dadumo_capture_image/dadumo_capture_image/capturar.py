@@ -72,7 +72,13 @@ class Ros2OpenCVImageConverter(Node):
         objeto_a_la_derecha = False
         objeto_a_la_izquierda = False
 
-        if(xCI > self.width2):
+        if( self.width2-20 <= xCI <= self.width2+20):
+            msg.angular.z = 0.0
+            # publica el mensaje
+            self.publisher.publish(msg)
+            # imprime mensaje informando del movimiento
+            self.get_logger().info('Parate')
+        elif(xCI > self.width2):
             msg.angular.z = -0.5
             # publica el mensaje
             self.publisher.publish(msg)
@@ -81,7 +87,6 @@ class Ros2OpenCVImageConverter(Node):
             #while(True):
             #    self.get_logger().info(str(msg.angular.z))
             # Este log nos muestra que el mensage angular z siempre es -0.5 y no cambia, el robot no gira por otra cosa
-            
         elif(xCI < self.width2):
             msg.angular.z = 0.5
             # publica el mensaje
@@ -89,7 +94,7 @@ class Ros2OpenCVImageConverter(Node):
             # imprime mensaje informando del movimiento
             self.get_logger().info('Girando hacia la izquierda')
         else:
-            self.get_logger().info('Conseguido')
+            self.get_logger().info('Raro')
 
     def conjuntopro(self):
         img_gray = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
