@@ -8,10 +8,14 @@ from rclpy.qos import ReliabilityPolicy, QoSProfile
 from geometry_msgs.msg import Twist
 import cv2
 import numpy as np
+# En la carpeta /recursos_opencv hay un archivo donde se ha realizo el procesamiento de imagen preevio a juntarlo con ros y todo mas ordenado para
+# para ejecutarse libremente, y una imagen de prueba
 
 # En cuanto al procesamiento con el robot real damos prioridad a la deteccion por color ya que con una imagen real resulta muy complicado
 # detectar la forma y aumenta severamente la imprecision, por lo tanto con el color detectamos el objeto sin problemas y posteriormente
 # obtenemos el centro de este
+# Como es muy dificil capturar el objeto por el poligono debido a la precision no se corroboran los metodos entre si, aun asi la funcion esta
+# en el archivo procesamiento_proyecto.py guardado en /recursos_opencv
 # Realiza el proceso perfecto pero tiene problemas para girar (en capture_mov.py esta el movimiento solo sin openCV que funciona)
 class Ros2OpenCVImageConverter(Node):
 
