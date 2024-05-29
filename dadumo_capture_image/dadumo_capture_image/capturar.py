@@ -63,14 +63,6 @@ class Ros2OpenCVImageConverter(Node):
 
     # esta funcion debe ser llamada cuando se ha CONFIRMADO un objeto, no cuando detecta cualquier cosa
     def centrar_camara(self, xCI, yCI):
-        # cambiar centro_imagen por un RANGO, para que no sea un solo pixel, es decir, cambiarlo a algo como [180, 230]
-        # algo asi
-        #centro_imagen1 = ancho_imagen/1.9
-        #centro_imagen2 = ancho_imagen/2.1
-
-        # dejo un print para ver si funciona
-        print("Esto funciona!")
-
         #self.img = imagen_obstaculo
         msg = Twist()
         objeto_a_la_derecha = False
@@ -215,13 +207,10 @@ class Ros2OpenCVImageConverter(Node):
         
 
 def main(args=None):
-    #print("Print 1 !!!")
     rclpy.init(args=args)
     img_converter_object = Ros2OpenCVImageConverter()
-    #print("PRINT 2 !!!")
     try:
         rclpy.spin(img_converter_object)
-        #print(" PRINT 3 !!!!!")
     except KeyboardInterrupt:
         img_converter_object.destroy_node()
         print("Fin del programa!")
