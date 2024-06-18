@@ -8,6 +8,10 @@ from rclpy.qos import ReliabilityPolicy, QoSProfile
 from geometry_msgs.msg import Twist
 import cv2
 import numpy as np
+from PIL import Image as PILImage
+from io import BytesIO
+import base64
+from custom_interface.msg import Base64Image
 # En la carpeta /recursos_opencv hay un archivo donde se ha realizo el procesamiento de imagen preevio a juntarlo con ros y todo mas ordenado para
 # para ejecutarse libremente, y una imagen de prueba
 
@@ -24,11 +28,11 @@ class Ros2OpenCVImageConverter(Node):
         super().__init__('Ros2OpenCVImageConverter')
 
         self.img = Image()
-
+        #self.srv = self.create_service(Image, 'my_image_in_web', self.image_callback)
 
 
         print("Nodo inicializado")
-        self.image_publisher = self.create_publisher(Image, 'camera/image_processed', 10)  # Añadido para publicar imágenes
+        self.image_publisher = self.create_publisher(Base64Image, 'camera/image_processed', 10)  # Añadido para publicar imágenes
         self.publisher = self.create_publisher(Twist, 'cmd_vel', 10)
         self.bridge_object = CvBridge()
         self.image_sub = self.create_subscription(Image,'/image',self.camera_callback,QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT))
@@ -46,10 +50,26 @@ class Ros2OpenCVImageConverter(Node):
 
         # Publicar imagen a la web
         try:
-            image_message = self.bridge_object.cv2_to_imgmsg(cv_image, encoding="bgr8")
+            # Convertir la imagen de OpenCV a base64
+            pil_image = PILImage.fromarray(cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB))
+            buffered = BytesIO()
+            pil_image.save(buffered, format="JPEG")
+            image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+
+            # Publicar la imagen en formato base64
+            image_message = Base64Image()
+            image_message.data = image_base64
             self.image_publisher.publish(image_message)
+            self.get_logger().info('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
         except CvBridgeError as e:
             print(e)
+
+        # Publicar imagen a la web
+        #try:
+        #    image_message = self.bridge_object.cv2_to_imgmsg(cv_image, encoding="bgr8")
+        #    self.image_publisher.publish(image_message)
+        #except CvBridgeError as e:
+        #    print(e)
 
         self.img = cv_image
         # Obtener las dimensiones de la imagen
@@ -62,8 +82,8 @@ class Ros2OpenCVImageConverter(Node):
         # Aqui ya deberiamos ser capaces de trabajar con la imagen, y trabajar en la detección de objetos y la respuesta del robot a ellos
         self.conjuntopro()
         #self.centrar_camara(cv_image)
-        cv2.imshow("Imagen capturada por el robot", cv_image)
-        cv2.waitKey(1)
+        #cv2.imshow("Imagen capturada por el robot", cv_image)
+        #cv2.waitKey(1)
 
     # esta funcion debe ser llamada cuando se ha CONFIRMADO un objeto, no cuando detecta cualquier cosa
     def centrar_camara(self, xCI, yCI):
@@ -177,7 +197,7 @@ class Ros2OpenCVImageConverter(Node):
         # Aplicar la máscara a la imagen original
         #res = cv2.bitwise_and(img, img, mask=mask)
         res = cv2.bitwise_not(cv2.bitwise_or(mask1, mask2))
-        cv2.imshow('res',res)
+        #cv2.imshow('res',res)
 
         contours, _ = cv2.findContours(cv2.bitwise_or(mask1, mask2), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -203,14 +223,14 @@ class Ros2OpenCVImageConverter(Node):
         else:
             print("No se encontraron objetos rojos")
 
-        cv2.imshow('Imagen con centro del objeto', self.img)
-        cv2.imshow('Mascara roja', res)
+        #cv2.imshow('Imagen con centro del objeto', self.img)
+        #cv2.imshow('Mascara roja', res)
 
         # Mostrar las imágenes finales
-        cv2.imshow('Imagen con detecciones', self.img)
-        cv2.imshow('Imagen con máscara', res)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        #cv2.imshow('Imagen con detecciones', self.img)
+        #cv2.imshow('Imagen con máscara', res)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
         
 
         
